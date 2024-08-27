@@ -1,0 +1,281 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
+class Pokemon_game:
+    def __init__(self):
+         
+        print("Welcome to the Pokemon game!")
+        print("In this game, you'll be desigining your own pokemon game, following some instructions given in the class.\n")
+        print("I hope you have a lot of fun!")
+        print("First, let's create your own pokemon!")
+      
+        self.pokemon_dictionary = {'Pikachu': {'Index': 25, 'Weight(kg)': 6.0, 'Height(m)': 0.4, 'Type': 'Electric'},
+                                   'Squirtle': {'Index': 7, 'Weight(kg)': 9.0, 'Height(m)': 0.5, 'Type': 'Water'},
+                                   'Charmander': {'Index': 4, 'Weight(kg)': 8.5, 'Height(m)': 0.61, 'Type': 'Fire'},
+                                   'Bulbasaur': {'Index': 1, 'Weight(kg)': 6.9, 'Height(m)': 0.7, 'Type': ['Grass', 'Poison']}}
+        print(f"The current dictionary of pokemons from which you can add a pokemon is: {[key for key in self.pokemon_dictionary.keys()]}")
+       
+        ###
+        ### Now fill in your code here to create your pokebox with a pokemon of your choice from the pokemon dictionary
+        ###
+        
+        self.my_pokebox = {} # our pokemon dictionary
+        self.pokemon_name= input("add your pokemon name here") #pokemon name
+
+        if self.pokemon_name =='q':
+            return
+        
+        else:
+            
+            while self.pokemon_name not in self.pokemon_dictionary:
+                print("please pick something from the dictionary!")
+                self.pokemon_name=input("add your pokemon name here")
+                
+            # save the pokemon_name as well as its information into your my_pokebox.
+            self.my_pokebox[self.pokemon_name] = self.pokemon_dictionary[self.pokemon_name]
+        
+        print(f"{self.my_pokebox} has been added to your Pokébox.")
+        
+    def add_pokemon(self):
+        print("Let's add another pokemon to your pokebox.")
+        print(f"You have {self.my_pokebox} in your pokebox.")
+        print(f"The current dictionary of pokemons from which you can add a pokemon is: {[key for key in self.pokemon_dictionary.keys()]}")
+        self.pokemon_decision= input("Do you want to add more pokemons here?y/n") #pokemon name
+        if self.pokemon_decision =='y':
+            self.pokemon_name= input("add your pokemon name here, or enter q to exit")
+            
+             
+            if self.pokemon_decision =='q':
+                return
+
+            else:
+
+                while self.pokemon_name not in self.pokemon_dictionary:
+                    print("please pick something from the dictionary!")
+                    self.pokemon_name=input("add your pokemon name here")
+
+                while self.pokemon_name in self.my_pokebox:
+                    print("You have already picked this pokemon, please pick another!")
+                    self.pokemon_name=input("add your pokemon name here")
+
+                # save the pokemon_name as well as its information into your my_pokebox.
+                self.my_pokebox[self.pokemon_name] = self.pokemon_dictionary[self.pokemon_name]
+        else:
+            print(f"{self.my_pokebox} has been added to your Pokébox.")
+        print(f"{self.my_pokebox} has been added to your Pokébox.")
+        ###
+        ### Now fill in your code here to add a pokemon of your choice 
+        ###
+
+        #print(f"Now {[key for key in self.my_pokebox.keys()]} are your pokemons!") 
+
+
+# In[2]:
+
+
+my_pokemon_game=Pokemon_game()
+
+
+# In[3]:
+
+
+my_pokemon_game.my_pokebox
+
+
+# In[ ]:
+
+
+my_pokemon_game.add_pokemon()
+
+
+# In[ ]:
+
+
+class Pokemon_stat:
+    """It enables pokemon trainers to check the stat of their pokemon(s), change their stat, and write a text file
+        demonstrating their stat."""
+        
+    def __init__(self, pokebox):
+        self.pokebox = pokebox  # Inherit pokebox from Pokemon_Game
+        
+    def check_stat(self):
+        """Check the stat of a pokemon from your pokebox"""
+        print(f"Current pokebox: {[key for key in self.pokebox.keys()]}")
+        
+        while True:
+            self.pokemon_name = input("Choose a pokemon from your pokebox whose stat is to be checked. "
+                                 "Or press 'q' to stop checking your pokemon stat: ")
+            if self.pokemon_name in self.pokebox.keys():
+                print(f"Here is the stat of {self.pokemon_name}:")
+                for key, item in self.pokebox[self.pokemon_name].items():
+                    print(f"{key}: {item}")
+                break
+            elif self.pokemon_name == 'q':
+                return
+            else:
+                print("The pokemon name does not exist in your pokebox.")
+
+
+# In[ ]:
+
+
+def change_stat(self):
+        """Change any specific stat from a pokemon in your pokebox"""
+        
+        self.check_stat()
+        
+        if self.pokemon_name not in self.pokebox.keys():
+            print(f"{self.pokemon_name} is not in your pokebox yet. Choose a pokemon in your pokebox.")
+            return 
+        else:
+            while True:
+                pokemon_stat = input(f"What stat would you like to change from {self.pokemon_name}? "
+                                   "Or press 'q' to stop changing your pokemon stat: ")
+                if pokemon_stat == 'q':
+                    return
+                elif pokemon_stat not in self.pokebox[self.pokemon_name].keys():
+                    print("The pokemon stat you'd like to modify does not exist in your pokebox.")
+                    print("Please choose an existent stat to be modified.")
+                    continue
+                break
+            new_value = input(f"What value would you like to assign for {pokemon_stat} of {self.pokemon_name}?")
+            self.pokebox[self.pokemon_name][pokemon_stat] = new_value
+            print(f"Now the {pokemon_stat} of {self.pokemon_name} is {new_value}!")
+
+
+# In[ ]:
+
+
+def write_stat(self):
+        """Write the stat of the pokemon of your choice into a text file."""
+        
+        print(f"Current pokebox: {[key for key in self.pokebox.keys()]}")
+        
+        while True:
+            self.pokemon_name = input("Choose a pokemon from your pokebox whose stat will be written into a textfile. "
+                                 "Or press 'q' to stop writing your pokemon stat: ")
+            
+            if self.pokemon_name == 'q':
+                return
+            elif self.pokemon_name not in self.pokebox.keys():
+                print("The pokemon name does not exist in your pokebox.")
+                print("Please choose a pokemon that already exists in your pokebox.")
+                continue
+            else: 
+                self.content_stat = ""
+                for key, item in self.pokebox[self.pokemon_name].items():
+                    self.content_stat += f"{key}: {item}\n"
+                break
+                
+        path = Path(f'{self.pokemon_name}_stat.txt')
+        path.write_text(self.content_stat)
+        print(f"The stat of {self.pokemon_name} is written into a text file!")
+
+
+# In[ ]:
+
+
+import random
+import time
+
+class Pokemon_Training:
+    """This subclass will help you train your pokemon!"""
+    
+    def __init__(self, pokebox):
+        self.pokebox = pokebox  # Inherit pokebox from Pokemon_Game
+        
+    
+    def pokemon_battle(self):
+        """Choose your two pokemons and make them battle!"""
+        if len(self.pokebox) < 2:
+            print("You do not have enough pokemons in your pokebox! Please collect more pokemons first.")
+            return
+        
+        print(f"The current list of the pokemons in your pokebox is {[key for key in self.pokebox.keys()]}.\n")
+        
+        while True:
+            pokemon1 = input("Choose your first pokemon. Or press 'q' to stop training your pokemons: ")
+            if pokemon1 == 'q':
+                return
+            elif pokemon1 not in self.pokebox.keys():
+                print("You do not have that pokemon in your pokebox!")
+                continue
+            else:
+                while True:
+                    pokemon2 = input("Choose your second pokemon. Or press 'q' to stop training your pokemons: ")
+                    if pokemon2 == 'q':
+                        return
+                    elif pokemon2 == pokemon1:
+                        print("Choose a different pokemon from the first one!")
+                        continue
+                    elif pokemon2 not in self.pokebox.keys():
+                        print("You do not have that pokemon in your pokebox!")
+                        continue
+                    else:
+                        break
+                break
+            
+        print(f"You chose {pokemon1} and {pokemon2} for training!")
+     
+
+
+# In[ ]:
+
+
+"""more stats for the two pokemons"""
+pokemon1_hp = 100
+pokemon2_hp = 100
+pokemon1_dmg = 10 #damage that pokemon1 gives for each tackle
+pokemon2_dmg = 8  #damage that pokemon2 gives for each tackle
+pokemon1_dodge = 0.1 #probability that pokemon1 dodges the pokemon2's attack
+pokemon2_dodge = 0.2 #probability that pokemon2 dodges the pokemon1's attack
+crit_damage = 2 # additional critical damage
+crit_prob = 0.2 # probability of landing critical hit, in which case each pokemon give {crit_damage} additional damage.
+
+"""Battle starts"""
+print(f"{pokemon1} and {pokemon2} get into fight! ")
+print(f"Their starting HP is {pokemon1_hp} and {pokemon2_hp}, respectively!\n")
+time.sleep(1) # gives a pause for 1 second
+
+while True:
+    print(f"{pokemon1} used Tackle!\n")
+    time.sleep(1)
+    damage = random.choices([pokemon1_dmg, pokemon1_dmg + crit_damage, 0], [1-crit_prob-pokemon2_dodge, crit_prob, pokemon2_dodge], k=1)[0]
+    if damage == pokemon1_dmg:
+        print(f"{pokemon2} lost {damage} HP!")
+    elif damage == pokemon1_dmg + crit_damage:
+        print(f"The tackle was effective! {pokemon2} lost {damage} HP!")
+    else: 
+        print(f"{pokemon2} dodged the attack!")
+    pokemon2_hp = pokemon2_hp - damage
+    if pokemon2_hp <=0:
+        print(f"{pokemon2} unfortunately reached 0 HP...")
+        print(f"{pokemon1} won the battle!")
+        break
+    else:
+        time.sleep(1)
+        print(f"The HP of {pokemon2} is currently {pokemon2_hp}!\n")
+        time.sleep(1)
+
+    print(f"{pokemon2} used Tackle!\n")
+    time.sleep(1)
+    damage = random.choices([pokemon2_dmg, pokemon2_dmg + crit_damage, 0], [1-crit_prob-pokemon1_dodge, crit_prob, pokemon1_dodge], k=1)[0]
+    if damage == pokemon2_dmg:
+        print(f"{pokemon1} lost {damage} HP!")
+    elif damage == pokemon2_dmg + crit_damage:
+        print(f"The tackle was effective! {pokemon1} lost {damage} HP!")
+    else: 
+        print(f"{pokemon1} dodged the attack!")
+    pokemon1_hp = pokemon1_hp - damage
+    if pokemon1_hp <=0:
+        print(f"{pokemon1} unfortunately reached 0 HP...")
+        print(f"{pokemon2} won the battle!")
+        break
+    else:
+        time.sleep(1)
+        print(f"The HP of {pokemon1} is currently {pokemon1_hp}!\n")
+        time.sleep(1)
+
